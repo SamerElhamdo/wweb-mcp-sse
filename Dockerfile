@@ -5,7 +5,7 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 COPY package.json ./
-RUN npm ci --only=production || npm install --only=production
+RUN npm install --only=production
 
 COPY src ./src
 

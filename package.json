@@ -15,7 +15,7 @@
     "helmet": "^7.1.0",
     "morgan": "^1.10.0",
     "qrcode": "^1.5.4",
-    "whatsapp-web.js": "^1.23.0"
+    "whatsapp-web.js": "^1.24.0"
   }
 }
 

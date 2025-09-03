@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import QRCode from 'qrcode';
-import { Client, LocalAuth } from 'whatsapp-web.js';
+import pkg from 'whatsapp-web.js';
+const { Client, LocalAuth } = pkg;
 import { config, ensureDirs } from './config.js';
 import { broadcast } from './sse.js';
 import { dispatch } from './webhook.js';
