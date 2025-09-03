@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  wweb-mcp-sse:
+    build: .
+    container_name: wweb-mcp-sse
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - AUTH_TOKEN=${AUTH_TOKEN:-change-me-very-secret}
+      - WEBHOOK_URL=${WEBHOOK_URL:-}
+      - WEBHOOK_SECRET=${WEBHOOK_SECRET:-}
+      - WWEB_SESSION_DIR=/data/session
+      - LOG_LEVEL=dev
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Security options for headless Chrome
+    security_opt:
+      - seccomp:unconfined
+    # Required for Chrome to run in container
+    shm_size: 2gb
