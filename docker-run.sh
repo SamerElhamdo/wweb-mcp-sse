@@ -25,7 +25,13 @@ fi
 
 # Build the image
 echo "🔨 Building Docker image..."
-docker build -t wweb-mcp-sse .
+if docker buildx version >/dev/null 2>&1; then
+    echo "📦 Using BuildKit for faster builds..."
+    DOCKER_BUILDKIT=1 docker build -t wweb-mcp-sse .
+else
+    echo "📦 Using standard Docker build..."
+    docker build -t wweb-mcp-sse .
+fi
 
 # Run the container
 echo "▶️  Starting container..."

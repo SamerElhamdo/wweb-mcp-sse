@@ -21,7 +21,17 @@ docker-compose up -d
 ./docker-run.sh your-secret-token
 ```
 
-#### 3. تشغيل مباشر
+#### 3. البناء مع BuildKit (أسرع)
+```bash
+# تفعيل BuildKit
+export DOCKER_BUILDKIT=1
+# البناء
+./docker-build.sh
+# أو استخدام docker-compose مع BuildKit
+docker-compose -f docker-compose.buildkit.yml up -d
+```
+
+#### 4. تشغيل مباشر
 ```bash
 docker build -t wweb-mcp-sse .
 docker run -d \
@@ -80,6 +90,7 @@ Authorization: Bearer your-secret-token
 - دعم webhooks
 - Volume mount للجلسات
 - Health checks
+- دعم BuildKit للبناء السريع
 
 #### ⚠️ تحسينات مقترحة
 1. **إضافة health check في الكود**: فحص حالة WhatsApp client
@@ -92,6 +103,27 @@ Authorization: Bearer your-secret-token
 - `--shm-size=2gb`: للـ Chrome
 - `--security-opt seccomp:unconfined`: للـ Chrome
 - Volume mount للـ session data
+
+#### 🛠️ حل مشاكل BuildKit
+إذا واجهت مشكلة `--mount option requires BuildKit`:
+
+**الحل 1: تفعيل BuildKit**
+```bash
+export DOCKER_BUILDKIT=1
+docker build -t wweb-mcp-sse .
+```
+
+**الحل 2: استخدام Dockerfile العادي**
+```bash
+# الـ Dockerfile الحالي يعمل بدون BuildKit
+docker build -t wweb-mcp-sse .
+```
+
+**الحل 3: استخدام docker-compose**
+```bash
+# يستخدم Dockerfile العادي تلقائياً
+docker-compose up -d
+```
 
 ### 🧪 اختبار التشغيل
 ```bash

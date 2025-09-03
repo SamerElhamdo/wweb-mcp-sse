@@ -5,7 +5,7 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 COPY package.json ./
-RUN npm ci --only=production || npm install --only=production
+RUN --mount=type=cache,target=/root/.npm npm ci --only=production || npm install --only=production
 
 COPY src ./src
 
@@ -47,4 +47,3 @@ VOLUME ["/data"]
 EXPOSE 3000
 
 CMD ["node", "src/index.js"]
-

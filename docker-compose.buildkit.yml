@@ -4,7 +4,7 @@ services:
   wweb-mcp-sse:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.buildkit
     container_name: wweb-mcp-sse
     ports:
       - "3000:3000"
